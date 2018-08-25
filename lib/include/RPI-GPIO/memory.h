@@ -24,6 +24,7 @@ SOFTWARE.
 
 */
 
+#include <stdint.h>
 
 #pragma once
 
@@ -40,7 +41,7 @@ constexpr uint32_t PAGE_SIZE = (4 * 1024);
 
 class Bcm2835Periph {
     private:
-        uint32_t addr;              // Physical base address
+        const uint32_t addr;         // Physical base address
         int mem_fd;                 // /dev/mem file descriptor
         void* mapped;               // Pointer to mapped mémory in the iser space
         volatile uint32_t* base;    // Public pointer to mapped memory
@@ -50,6 +51,11 @@ class Bcm2835Periph {
          * @return tru on success, false on failure
          */
         bool openMem(void);
+
+        /**
+         * Closes /dev/mem
+         */
+        void closeMem(void);
 
     public:
         /**
@@ -73,11 +79,6 @@ class Bcm2835Periph {
          * Unmaps the memory
          */
         void unmap(void);
-
-        /**
-         * Closes /dev/mem
-         */
-        void closeMem(void);
 
         /**
          * Getter for the base pointer
