@@ -32,3 +32,56 @@ SOFTWARE.
 constexpr uint32_t BCM_PERIPH_BASE = 0x20000000;
 constexpr uint32_t BCM_GPIO_BASE = (BCM_PERIPH_BASE + 0x200000);
 constexpr uint32_t PAGE_SIZE = (4 * 1024);
+
+/**
+ * This class handles access to a peripheral by mapping physical memory to the
+ * process user memory space
+ */
+
+class Bcm2835Periph {
+    private:
+        uint32_t addr;              // Physical base address
+        int mem_fd;                 // /dev/mem file descriptor
+        void* mapped;               // Pointer to mapped mémory in the iser space
+        volatile uint32_t* base;    // Public pointer to mapped memory
+
+        /**
+         * Opens /dev/mem
+         * @return tru on success, false on failure
+         */
+        bool openMem(void);
+
+    public:
+        /**
+         * Class constructor
+         * @param addr_p Base address of the peripheral memory
+         */
+        Bcm2835Periph(uint32_t addr_p = 0);
+
+        /**
+         * Destructor
+         */
+        ~Bcm2835Periph();
+
+        /**
+         * Maps the peripheral memory into the user space memory
+         * @return true on success, false on failure
+         */
+        bool map(void);
+
+        /**
+         * Unmaps the memory
+         */
+        void unmap(void);
+
+        /**
+         * Closes /dev/mem
+         */
+        void closeMem(void);
+
+        /**
+         * Getter for the base pointer
+         * @return pointer to the first 32-bit integer of the mapped memory
+         */
+        volatile uint32_t* getBase(void);
+};
