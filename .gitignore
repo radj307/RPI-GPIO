@@ -1,0 +1,3 @@
+*.o
+librpigpio.a
+test.out
