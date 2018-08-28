@@ -1,3 +1,4 @@
 #pragma once
 
-void printHelloWorld();
+#include "RPI-GPIO/memory.h"
+#include "RPI-GPIO/gpio.h"
