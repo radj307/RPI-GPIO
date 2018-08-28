@@ -77,6 +77,19 @@ unsigned int GPIO::pinLev(unsigned int pin) const {
     }
 }
 
+void GPIO::digitalWrite(unsigned int pin, PIN_LEVEL lev) const {
+    switch(lev) {
+        case PIN_LEVEL::LOW:
+            pinDown(pin);
+            break;
+        case PIN_LEVEL::HIGH:
+            pinUp(pin);
+    }
+}
+
+unsigned int GPIO::digitalRead(unsigned int pin) const {
+    return pinLev(pin);
+}
 
 
 
@@ -89,4 +102,8 @@ constexpr volatile uint32_t& GPIO::r(uint32_t off) const {
 
 constexpr unsigned int GPIO::pinModeToInt(PIN_MODE mode) const {
     return static_cast<unsigned int> (mode);
+}
+
+constexpr unsigned int GPIO::pinLevelToInt(PIN_LEVEL lev) const {
+    return static_cast<unsigned int> (lev);
 }

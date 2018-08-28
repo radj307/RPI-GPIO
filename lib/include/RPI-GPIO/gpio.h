@@ -60,6 +60,11 @@ enum class PIN_MODE : unsigned int {
     ALT5 = 0x010
 };
 
+enum class PIN_LEVEL : unsigned int {
+    LOW = 0x0,
+    HIGH = 0x1
+};
+
 
 /**
  * Library main class.
@@ -77,7 +82,19 @@ class GPIO {
          */
         constexpr volatile uint32_t& r(uint32_t off) const;
 
+        /**
+         * Type conversion from PIN_MODE to unsigned integer
+         * @param mode pin mode
+         * @return the corresponding integer
+         */
         constexpr unsigned int pinModeToInt(PIN_MODE mode) const;
+
+        /**
+         * Type conversion from PIN_MODE to unsigned integer
+         * @param lev pin level
+         * @return the corresponding integer
+         */
+        constexpr unsigned int pinLevelToInt(PIN_LEVEL lev) const;
 
     public:
         /**
@@ -124,9 +141,23 @@ class GPIO {
         void pinDown(unsigned int pin) const;
 
         /**
-         * Get the value of a pin
+         * Read the value of a pin
          * @param pin pin number
          * @return pin value
          */
         unsigned int pinLev(unsigned int pin) const;
+
+        /**
+         * Write a value to a pin
+         * @param pin pin number
+         * @param lev value
+         */
+        void digitalWrite(unsigned int pin, PIN_LEVEL lev) const;
+
+        /**
+         * Read a value from a pin
+         * @param pin pin number
+         * @return pin value
+         */
+        unsigned int digitalRead(unsigned int pin) const;
 };
