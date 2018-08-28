@@ -44,14 +44,14 @@ bool GPIO::disconnect() {
     return true;
 }
 
-void GPIO::pinMode(char pin, PIN_MODE mode) {
+void GPIO::pinMode(unsigned int pin, PIN_MODE mode) const {
     unsigned int rnum = pin / 10;
     unsigned int offset = (pin % 10) * 3;
     r(GPFSEL0 + (rnum * 4)) &= ~(0b111 << offset);
     r(GPFSEL0 + (rnum * 4)) |= (pinModeToInt(mode) << offset);
 }
 
-void GPIO::pinUp(char pin) {
+void GPIO::pinUp(unsigned int pin) const {
     if (pin < 32) {
         r(GPSET0) |= 1 << pin;
     } else if (pin >= 32) {
@@ -59,7 +59,7 @@ void GPIO::pinUp(char pin) {
     }
 }
 
-void GPIO::pinDown(char pin) {
+void GPIO::pinDown(unsigned int pin) const {
     if (pin < 32) {
         r(GPCLR0) |= 1 << pin;
     } else if (pin >= 32) {
@@ -67,7 +67,7 @@ void GPIO::pinDown(char pin) {
     }
 }
 
-char GPIO::pinLev(char pin) {
+unsigned int GPIO::pinLev(unsigned int pin) const {
     if (pin < 32) {
         return (r(GPLEV0) & 1 << pin) == 1;
     } else if (pin >= 32) {

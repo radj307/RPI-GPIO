@@ -103,24 +103,24 @@ class GPIO {
          * @param pin pin number
          * @param mode pin mode
          */
-        void pinMode(char pin, PIN_MODE mode);
+        void pinMode(unsigned int pin, PIN_MODE mode) const;
 
         /**
          * Sets a pin to HIGH
          * @param pin pin number
          */
-        void pinUp(char pin);
+        void pinUp(unsigned int pin) const;
 
         /**
          * Sets a pin to LOW
          * @param pin pin number
          */
-        void pinDown(char pin);
+        void pinDown(unsigned int pin) const;
 
         /**
          * Get the value of a pin
          * @param pin pin number
          * @return pin value
          */
-        char pinLev(char pin);
+        unsigned int pinLev(unsigned int pin) const;
 };
