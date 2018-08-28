@@ -62,12 +62,22 @@ class Bcm2835Periph {
          * Class constructor
          * @param addr_p Base address of the peripheral memory
          */
-        Bcm2835Periph(uint32_t addr_p = 0);
+        explicit Bcm2835Periph(uint32_t addr_p = 0);
 
         /**
          * Destructor
          */
         ~Bcm2835Periph();
+
+        /**
+         * Other constructors and operators
+         */
+        Bcm2835Periph(Bcm2835Periph&) = delete;
+        Bcm2835Periph(const Bcm2835Periph&) = delete;
+        Bcm2835Periph operator=(Bcm2835Periph&) = delete;
+        Bcm2835Periph operator=(const Bcm2835Periph&) = delete;
+        Bcm2835Periph(Bcm2835Periph&&) = default;
+        Bcm2835Periph& operator=(Bcm2835Periph&&) = default;
 
         /**
          * Maps the peripheral memory into the user space memory

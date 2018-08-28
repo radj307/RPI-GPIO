@@ -81,10 +81,16 @@ class GPIO {
 
     public:
         /**
-         * Constructors
+         * Constructors and operators
          */
         GPIO() = default;
         ~GPIO() = default;
+        GPIO(GPIO&) = delete;
+        GPIO(const GPIO&) = delete;
+        GPIO operator=(GPIO&) = delete;
+        GPIO operator=(const GPIO&) = delete;
+        GPIO(GPIO&&) = default;
+        GPIO& operator=(GPIO&&) = default;
 
         /**
          * Opens the GPIO peripheral
