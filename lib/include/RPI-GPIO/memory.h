@@ -24,7 +24,7 @@ SOFTWARE.
 
 */
 
-#include <stdint.h>
+#include <cstdint>
 
 #pragma once
 
@@ -84,5 +84,5 @@ class Bcm2835Periph {
          * Getter for the base pointer
          * @return pointer to the first 32-bit integer of the mapped memory
          */
-        volatile uint32_t* getBase(void);
+        volatile uint32_t* getBase(void) const;
 };

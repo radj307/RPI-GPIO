@@ -28,24 +28,23 @@ SOFTWARE.
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>
-#include <stdint.h>
+#include <cstdint>
 #include <unistd.h>
-#include <stdio.h>
+#include <cstdio>
 
 #include "RPI-GPIO/memory.h"
 
 
 /* Public methods */
 
-Bcm2835Periph::Bcm2835Periph(uint32_t addr_p) : addr{addr_p} {
-}
+Bcm2835Periph::Bcm2835Periph(uint32_t addr_p) : addr{addr_p} {}
 
 Bcm2835Periph::~Bcm2835Periph() {
-    if (mapped != nullptr) {
+    if (mapped) {
         unmap();
     }
 
-    if (mem_fd != 0) {
+    if (mem_fd) {
         closeMem();
     }
 }
@@ -75,7 +74,7 @@ void Bcm2835Periph::unmap() {
     closeMem();
 }
 
-volatile uint32_t* Bcm2835Periph::getBase() {
+volatile uint32_t* Bcm2835Periph::getBase() const {
     if (base) return base;
     else return nullptr;
 }
@@ -85,6 +84,7 @@ volatile uint32_t* Bcm2835Periph::getBase() {
 
 
 /* Private methods */
+
 bool Bcm2835Periph::openMem() {
     return ((mem_fd = open("/dev/mem", O_RDWR | O_SYNC)) >= 0);
 }
