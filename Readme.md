@@ -25,6 +25,7 @@ Here is a list of features and changes that I have planned for this project, in 
 - Misc :
     - Better error handling with exceptions
     - Compile to a dynamic library
+    - **Find a good name**
 - Documentation
     - Yeah write some documentation ! This could help people ... you know ... actually **use** the library
 
