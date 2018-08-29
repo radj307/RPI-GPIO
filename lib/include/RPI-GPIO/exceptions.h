@@ -33,23 +33,31 @@ SOFTWARE.
  * Exception base class
  * Represents a generic exception
  * Has only basic functionnalities (exception message)
+ * The exception message is fetched from the standard error code
  */
 class Exception {
     private:
-        const std::string message;  //Exception message
+        const std::string message;  // Exception message
+        const int err;            // Error number
 
     public:
         /**
          * Constructor
-         * @param msg exception message
+         * @param error error code
          */
-        explicit Exception(const std::string msg = "");
+        explicit Exception(const int error);
 
         /**
          * Getter for the exception message
          * @return the exception message
          */
         const std::string& what(void) const;
+
+        /**
+         * Getter for the error number
+         * @return the error number
+         */
+        int error(void) const;
 };
 
 
@@ -59,10 +67,10 @@ class Exception {
  */
 class IOException : public Exception {
     public:
-        explicit IOException(const std::string msg);
+        IOException(const int error) : Exception{error} {}
 };
 
 class MemoryException : public Exception {
     public:
-        explicit MemoryException(const std::string msg);
+        MemoryException(const int error) : Exception{error} {}
 };

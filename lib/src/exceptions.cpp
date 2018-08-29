@@ -25,14 +25,17 @@ SOFTWARE.
 */
 
 #include <string>
+#include <errno.h>
+#include <cstring>
 #include "RPi-GPIO/exceptions.h"
 
 
-Exception::Exception(const std::string msg) : message{msg} {}
+Exception::Exception(const int error) : message{strerror(error)}, err{error} {}
 
 const std::string& Exception::what() const {
     return message;
 }
 
-IOException::IOException(const std::string msg) : Exception{msg} {}
-MemoryException::MemoryException(const std::string msg) : Exception{msg} {}
+int Exception::error() const {
+    return err;
+}

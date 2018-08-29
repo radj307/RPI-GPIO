@@ -51,7 +51,7 @@ Bcm2835Periph::~Bcm2835Periph() {
 }
 
 bool Bcm2835Periph::map() {
-    if (!openMem()) throw IOException{"Could not open memory file"};
+    if (!openMem()) throw IOException{errno};
 
     mapped = mmap(
         nullptr,
@@ -62,7 +62,7 @@ bool Bcm2835Periph::map() {
         addr
     );
 
-    if (!mapped) throw MemoryException{"Could not map device memory into the user space"};
+    if (!mapped) throw MemoryException{errno};
     else base = reinterpret_cast<volatile uint32_t*> (mapped);
 
     return true;

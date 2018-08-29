@@ -6,7 +6,7 @@ int main(int argc, char const *argv[]) {
     try {
         gpio.connect();
     } catch (Exception e) {
-        std::cout << e.what() << "\n";
+        std::cout << e.what() << "\nError code : " << e.error() << "\n";
     }
     return 0;
 }
