@@ -3,8 +3,10 @@
 
 int main(int argc, char const *argv[]) {
     GPIO gpio{};
-    if (!gpio.connect()) {
-        std::cout << "Couldn't connect to GPIO\n";
+    try {
+        gpio.connect();
+    } catch (Exception e) {
+        std::cout << e.what() << "\nError code : " << e.error() << "\n";
     }
     return 0;
 }
