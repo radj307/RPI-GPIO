@@ -33,6 +33,7 @@ SOFTWARE.
 #include <cstdio>
 
 #include "RPI-GPIO/memory.h"
+#include "RPI-GPIO/exceptions.h"
 
 
 /* Public methods */
@@ -50,7 +51,7 @@ Bcm2835Periph::~Bcm2835Periph() {
 }
 
 bool Bcm2835Periph::map() {
-    if (!openMem()) return false;
+    if (!openMem()) throw IOException{"Could not open memory file"};
 
     mapped = mmap(
         nullptr,
@@ -61,7 +62,7 @@ bool Bcm2835Periph::map() {
         addr
     );
 
-    if (mapped == nullptr) return false;
+    if (!mapped) throw MemoryException{"Could not map device memory into the user space"};
     else base = reinterpret_cast<volatile uint32_t*> (mapped);
 
     return true;
