@@ -25,7 +25,7 @@ SOFTWARE.
 */
 
 #include <cstdint>
-#include "RPi-GPIO/memory.h"
+#include "RPI-GPIO/memory.h"
 
 #pragma once
 

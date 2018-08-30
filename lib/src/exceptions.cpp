@@ -27,7 +27,7 @@ SOFTWARE.
 #include <string>
 #include <errno.h>
 #include <cstring>
-#include "RPi-GPIO/exceptions.h"
+#include "RPI-GPIO/exceptions.h"
 
 
 Exception::Exception(const int error) : message{strerror(error)}, err{error} {}
