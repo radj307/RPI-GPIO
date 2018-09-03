@@ -50,19 +50,19 @@ constexpr uint32_t GPLEV1 = 0x38;
 
 /** Types **/
 enum class PIN_MODE : unsigned int {
-    INPUT = 0x000,
-    OUTPUT = 0x001,
-    ALT0 = 0x100,
-    ALT1 = 0x101,
-    ALT2 = 0x110,
-    ALT3 = 0x111,
-    ALT4 = 0x011,
-    ALT5 = 0x010
+    INPUT = 0b000,
+    OUTPUT = 0b001,
+    ALT0 = 0b100,
+    ALT1 = 0b101,
+    ALT2 = 0b110,
+    ALT3 = 0b111,
+    ALT4 = 0b011,
+    ALT5 = 0b010
 };
 
 enum class PIN_LEVEL : unsigned int {
-    LOW = 0x0,
-    HIGH = 0x1
+    LOW = 0b0,
+    HIGH = 0b1
 };
 
 
