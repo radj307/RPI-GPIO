@@ -42,6 +42,31 @@ constexpr uint32_t GPCLR1 = 0x2c;
 constexpr uint32_t GPLEV0 = 0x34;
 constexpr uint32_t GPLEV1 = 0x38;
 
+constexpr uint32_t GPEDS0 = 0x40;
+constexpr uint32_t GPEDS1 = 0x44;
+
+constexpr uint32_t GPREN0 = 0x4c;
+constexpr uint32_t GPREN1 = 0x50;
+
+constexpr uint32_t GPFEN0 = 0x54;
+constexpr uint32_t GPFEN1 = 0x5c;
+
+constexpr uint32_t GPHEN0 = 0x64;
+constexpr uint32_t GPHEN1 = 0x68;
+
+constexpr uint32_t GPLEN0 = 0x70;
+constexpr uint32_t GPLEN1 = 0x74;
+
+constexpr uint32_t GPAREN0 = 0x7c;
+constexpr uint32_t GPAREN1 = 0x80;
+
+constexpr uint32_t GPAFEN0 = 0x88;
+constexpr uint32_t GPAFEN1 = 0x8c;
+
+constexpr uint32_t GPPUD = 0x94;
+constexpr uint32_t GPPUDCLK0 = 0x98;
+constexpr uint32_t GPPUDCLK1 = 0x9c;
+
 
 /** Types **/
 enum class PIN_MODE : unsigned int {
