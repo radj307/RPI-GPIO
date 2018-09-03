@@ -5,7 +5,28 @@ RPI-GPIO is a very small and very simple C++ library, that can be used to manipu
 "Why would you bother writing such a tool, when there are tons of libraries out there, that already exist ?". Well, why not ? This is my first real life C++ project and I'm ok with reinventing the wheel, as long as I learn new things.
 
 ## What it can do
-As of today, I have implemented the most basic functionalities : reading and writing to the GPIO pins.I haven't even had time to test it yet ! This project really is at its embryo state, for now !
+As of today, I have implemented the most basic functionalities : reading and writing to the GPIO pins. The library provides functions for that :
+```C++
+// Write functions
+void GPIO::pinUp(unsigned int pin);
+void GPIO::pinDown(unsigned int pin);
+void GPIO::digitalWrite(unsigned int pin, PIN_LEVEL lev);
+
+// Read functions
+unsigned int GPIO::pinLev(unsigned int pin);
+unsigned int GPIO::digitalRead(unsigned int pin);
+```
+To interact with the GPIO pins, you first have to instanciate a GPIO handler and call the `connect` method :
+```C++
+GPIO gpio{};
+try {
+    gpio.connect();
+} catch (Exception e) {
+    std::cout << e.what() << std::endl;
+    return 1;
+}
+```
+When you are done, you can call the `disconnect` method. This isn't mandatory as automatic cleanup is done when a GPIO object goes out of scope.
 
 ## How to use it
 Just compile it using `make`, then take the header files in `lib/include` and put them in your own sources. When compiling your project, you will just have to link against `lib/build/bin/rpigpio.a`.
@@ -23,7 +44,7 @@ Here is a list of features and changes that I have planned for this project, in 
     - Support more GPIO functionnalities (obviously)
     - Maybe write some command line tools ? (We don't want to go too deep into Wiring Pi's path)
 - Misc :
-    - Better error handling with exceptions
+    - ~~Better error handling with exceptions~~
     - Compile to a dynamic library
     - **Find a good name**
 - Documentation
