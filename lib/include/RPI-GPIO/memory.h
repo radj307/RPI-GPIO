@@ -30,7 +30,7 @@ SOFTWARE.
 
 
 /* Constants */
-constexpr uint32_t BCM_PERIPH_BASE = 0x20000000;
+constexpr uint32_t BCM_PERIPH_BASE = 0x3F000000;
 constexpr uint32_t BCM_GPIO_BASE = (BCM_PERIPH_BASE + 0x200000);
 constexpr uint32_t PAGE_SIZE = (4 * 1024);
 
