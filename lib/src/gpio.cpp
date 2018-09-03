@@ -47,8 +47,8 @@ bool GPIO::disconnect() {
 void GPIO::pinMode(unsigned int pin, PIN_MODE mode) const {
     unsigned int rnum = pin / 10;
     unsigned int offset = (pin % 10) * 3;
-    r(GPFSEL0 + (rnum * 4)) &= ~(0b111 << offset);
-    r(GPFSEL0 + (rnum * 4)) |= (pinModeToInt(mode) << offset);
+    r(GPFSEL[rnum]) &= ~(0b111 << offset);
+    r(GPFSEL[rnum]) |= (pinModeToInt(mode) << offset);
 }
 
 void GPIO::pinUp(unsigned int pin) const {
@@ -93,7 +93,7 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
 
 void GPIO::reset() const {
     for (int i = 0; i < 6; i++) {
-        r(GPFSEL0 + (i * 4)) = 0;
+        r(GPFSEL[i]) = 0;
     }
     r(GPCLR0) = ~0;
     r(GPCLR1) = ~0;

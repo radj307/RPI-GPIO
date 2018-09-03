@@ -31,12 +31,7 @@ SOFTWARE.
 
 
 /**  GPIO register adress offsets **/
-constexpr uint32_t GPFSEL0 = 0x0;
-constexpr uint32_t GPFSEL1 = 0x4;
-constexpr uint32_t GPFSEL2 = 0x8;
-constexpr uint32_t GPFSEL3 = 0xc;
-constexpr uint32_t GPFSEL4 = 0x10;
-constexpr uint32_t GPFSEL5 = 0x14;
+constexpr uint32_t GPFSEL[] = { 0x0, 0x4, 0x8, 0xc, 0x10, 0x14 };
 
 constexpr uint32_t GPSET0 = 0x1c;
 constexpr uint32_t GPSET1 = 0x20;
