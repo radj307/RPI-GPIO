@@ -27,6 +27,8 @@ SOFTWARE.
 #include "RPI-GPIO/gpio.h"
 #include "RPI-GPIO/memory.h"
 
+#include <unistd.h>
+
 /** Public methods **/
 
 bool GPIO::connect() {
@@ -91,6 +93,24 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
     return pinLev(pin);
 }
 
+void GPIO::pullUpDown(unsigned int pin, PUD pud) const {
+    r(GPPUD) &= ~0b11;
+    r(GPPUD) |= pudToInt(pud) & 0b11;
+    usleep(150);
+    enablePudClock(pin);
+    usleep(150);
+    disablePudClock(pin);
+    r(GPPUD) &= ~0b11;
+}
+
+void GPIO::resetPullUpDown() const {
+    r(GPPUD) &= ~0b11;
+    usleep(150);
+    r(GPPUDCLK0) = 0xFFFFFFC;
+    usleep(150);
+    r(GPPUDCLK0) = 0;
+}
+
 void GPIO::reset() const {
     r(GPFSEL[0]) &= ~(0xFFFFFFC0); 
     r(GPFSEL[1]) = 0;
@@ -113,4 +133,24 @@ constexpr unsigned int GPIO::pinModeToInt(PIN_MODE mode) const {
 
 constexpr unsigned int GPIO::pinLevelToInt(PIN_LEVEL lev) const {
     return static_cast<unsigned int> (lev);
+}
+
+constexpr unsigned int GPIO::pudToInt(PUD pud) const {
+    return static_cast<unsigned int> (pud);
+}
+
+void GPIO::enablePudClock(unsigned int pin) const {
+    if (pin < 32) {
+        r(GPPUDCLK0) |= 1 << pin;
+    } else {
+        r(GPPUDCLK1) |= 1 << (pin - 32);
+    }
+}
+
+void GPIO::disablePudClock(unsigned int pin) const {
+    if (pin < 32) {
+        r(GPPUDCLK0) &= ~(1 << pin);
+    } else {
+        r(GPPUDCLK1) &= ~(1 << (pin - 32));
+    }
 }

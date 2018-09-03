@@ -86,6 +86,13 @@ enum class PIN_LEVEL : unsigned int {
 };
 
 
+enum class PUD : unsigned int {
+    OFF = 0b00,
+    PD = 0b01,
+    PU = 0b10
+};
+
+
 /**
  * Library main class.
  * Handles GPIO manipulations
@@ -115,6 +122,25 @@ class GPIO {
          * @return the corresponding integer
          */
         constexpr unsigned int pinLevelToInt(PIN_LEVEL lev) const;
+
+        /**
+         * Type conversion from PUD to unsigned integer
+         * param pud Pull up/down state
+         * @return the corresponding value
+         */
+        constexpr unsigned int pudToInt(PUD pud) const;
+
+        /**
+         * Enables the PUD Clock on a pin
+         * @param pin pin number
+         */
+        void enablePudClock(unsigned int pin) const;
+
+        /**
+         * Disables the PU Clock on a pin
+         * @param pin pin number
+         */
+        void disablePudClock(unsigned int pin) const;
 
     public:
         /**
@@ -180,6 +206,18 @@ class GPIO {
          * @return pin value
          */
         unsigned int digitalRead(unsigned int pin) const;
+
+        /**
+         * Enables or disables internal pull-up/down resistors on a pin
+         * @param pin pin number
+         * @pud State : Off, Pull-up or Pull down
+         */
+        void pullUpDown(unsigned int pin, PUD pud) const;
+
+        /**
+         * resets the pull up/down resistors on all GPIO pins
+         */
+        void resetPullUpDown() const;
 
         /**
          * Resets all GPIO parameters
