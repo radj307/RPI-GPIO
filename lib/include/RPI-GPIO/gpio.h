@@ -80,7 +80,7 @@ class GPIO {
          * @param off offset in memory of the registry
          * @retrun a reference to the registry
          */
-        constexpr volatile uint32_t& r(uint32_t off) const;
+        volatile uint32_t& r(uint32_t off) const;
 
         /**
          * Type conversion from PIN_MODE to unsigned integer

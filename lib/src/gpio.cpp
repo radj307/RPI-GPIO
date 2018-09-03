@@ -96,7 +96,7 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
 
 /** Private methods **/
 
-constexpr volatile uint32_t& GPIO::r(uint32_t off) const {
+volatile uint32_t& GPIO::r(uint32_t off) const {
     return *(p_base + off);
 }
 
