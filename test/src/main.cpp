@@ -7,17 +7,19 @@ int main(int argc, char const *argv[]) {
     try {
         gpio.connect();
     } catch (Exception e) {
-        std::cout << e.what() << "\nError code : " << e.error() << "\n";
+        std::cout << e.what() << "\nError code : " << e.error() << std::endl;
         return 1;
     }
 
     const char pin = 2;
-
+    gpio.reset();
     gpio.pinMode(pin, PIN_MODE::OUTPUT);
     for (int i = 0; i < 5; i++) {
         gpio.pinDown(pin);
+        std::cout << gpio.pinLev(pin) << std::endl;
         sleep(1);
         gpio.pinUp(pin);
+        std::cout << gpio.pinLev(pin) << std::endl;
         sleep(1);
     }
     return 0;
