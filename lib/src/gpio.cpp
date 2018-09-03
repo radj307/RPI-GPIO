@@ -105,7 +105,7 @@ void GPIO::reset() const {
 /** Private methods **/
 
 volatile uint32_t& GPIO::r(const uint32_t off) const {
-    return *(p_base + off);
+    return *(p_base + (off / 4));
 }
 
 constexpr unsigned int GPIO::pinModeToInt(PIN_MODE mode) const {
