@@ -160,4 +160,9 @@ class GPIO {
          * @return pin value
          */
         unsigned int digitalRead(unsigned int pin) const;
+
+        /**
+         * Resets all GPIO parameters
+         */
+        void reset(void) const;
 };

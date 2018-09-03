@@ -91,6 +91,14 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
     return pinLev(pin);
 }
 
+void GPIO::reset() const {
+    for (int i = 0; i < 6; i++) {
+        r(GPFSEL0 + i) = 0;
+    }
+    r(GPCLR0) = ~0;
+    r(GPCLR1) = ~0;
+}
+
 
 
 
