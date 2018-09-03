@@ -104,7 +104,7 @@ void GPIO::reset() const {
 
 /** Private methods **/
 
-volatile uint32_t& GPIO::r(uint32_t off) const {
+volatile uint32_t& GPIO::r(const uint32_t off) const {
     return *(p_base + off);
 }
 
