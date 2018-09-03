@@ -16,7 +16,7 @@ int main(int argc, char const *argv[]) {
 
     gpio.reset();
     gpio.pinMode(readPin, PIN_MODE::INPUT);
-    gpio.pinMode(witePin, PIN_MODE::OUTPUT);
+    gpio.pinMode(writePin, PIN_MODE::OUTPUT);
 
     std::cout << gpio.digitalRead(readPin) << std::endl;
     gpio.digitalWrite(writePin, PIN_LEVEL::LOW);
