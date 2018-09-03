@@ -11,16 +11,17 @@ int main(int argc, char const *argv[]) {
         return 1;
     }
 
-    const char pin = 2;
+    const char readPin = 2;
+    const char writePin = 27;
+
     gpio.reset();
-    gpio.pinMode(pin, PIN_MODE::OUTPUT);
-    for (int i = 0; i < 5; i++) {
-        gpio.pinDown(pin);
-        std::cout << gpio.pinLev(pin) << std::endl;
-        sleep(1);
-        gpio.pinUp(pin);
-        std::cout << gpio.pinLev(pin) << std::endl;
-        sleep(1);
-    }
+    gpio.pinMode(readPin, PIN_MODE::INPUT);
+    gpio.pinMode(witePin, PIN_MODE::OUTPUT);
+
+    std::cout << gpio.digitalRead(readPin) << std::endl;
+    gpio.digitalWrite(writePin, PIN_LEVEL::LOW);
+    sleep(1);
+    gpio.digitalWrite(writePin, PIN_LEVEL::HIGH);
+
     return 0;
 }
