@@ -69,9 +69,9 @@ void GPIO::pinDown(unsigned int pin) const {
 
 unsigned int GPIO::pinLev(unsigned int pin) const {
     if (pin < 32) {
-        return (r(GPLEV0) & 1 << pin) == 1;
+        return (r(GPLEV0) & 1 << pin) != 0;
     } else if (pin >= 32) {
-        return (r(GPLEV1) & 1 << (pin - 32)) == 1;
+        return (r(GPLEV1) & 1 << (pin - 32)) != 0;
     } else {
         return 0;
     }
