@@ -93,7 +93,7 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
 
 void GPIO::reset() const {
     for (int i = 0; i < 6; i++) {
-        r(GPFSEL0 + i) = 0;
+        r(GPFSEL0 + (i * 4)) = 0;
     }
     r(GPCLR0) = ~0;
     r(GPCLR1) = ~0;
