@@ -92,9 +92,9 @@ unsigned int GPIO::digitalRead(unsigned int pin) const {
 }
 
 void GPIO::reset() const {
-    r(GPFSEL[0]) &= ~(0x‭FFFFFFC0‬);
+    r(GPFSEL[0]) &= ~(0xFFFFFFC0); 
     r(GPFSEL[1]) = 0;
-    r(GPFSEL[2]) &= ~(0x‭FFFFFF‬);
+    r(GPFSEL[2]) &= ~(0xFFFFFF);
     r(GPCLR0) = 0xFFFFFFC;
 }
 
