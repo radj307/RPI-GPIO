@@ -23,6 +23,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
+#include "memory.h"
+
+#include <make_exception.hpp>
 
 #include <sys/mman.h>
 #include <sys/types.h>
@@ -32,13 +35,10 @@ SOFTWARE.
 #include <unistd.h>
 #include <cstdio>
 
-#include "RPI-GPIO/memory.h"
-#include "RPI-GPIO/exceptions.h"
-
+using namespace rpigpio;
 
 /* Public methods */
-
-Bcm2835Periph::Bcm2835Periph(uint32_t addr_p) : addr{addr_p} {}
+Bcm2835Periph::Bcm2835Periph(uint32_t addr_p) : addr{ addr_p } {}
 
 Bcm2835Periph::~Bcm2835Periph() {
     if (mapped) {
@@ -51,7 +51,7 @@ Bcm2835Periph::~Bcm2835Periph() {
 }
 
 bool Bcm2835Periph::map() {
-    if (!openMem()) throw IOException{errno};
+    if (!openMem()) throw make_exception("I/O Exception ", errno);
 
     mapped = mmap(
         nullptr,
@@ -62,7 +62,7 @@ bool Bcm2835Periph::map() {
         addr
     );
 
-    if (!mapped) throw MemoryException{errno};
+    if (!mapped) throw make_exception("Memory Exception ", errno);
     else base = reinterpret_cast<volatile uint32_t*> (mapped);
 
     return true;

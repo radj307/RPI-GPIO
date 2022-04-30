@@ -23,9 +23,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
+#include "gpio.h"
 
-#include "RPI-GPIO/gpio.h"
-#include "RPI-GPIO/memory.h"
+using namespace rpigpio;
 
 /** Public methods **/
 

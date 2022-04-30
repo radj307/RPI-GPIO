@@ -23,77 +23,75 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 */
+#pragma once
+#include "memory.h"
 
 #include <cstdint>
-#include "RPI-GPIO/memory.h"
 
-#pragma once
+namespace rpigpio {
+    /**  GPIO register adress offsets **/
+    constexpr uint32_t GPFSEL[] = { 0x0, 0x4, 0x8, 0xc, 0x10, 0x14 };
 
+    constexpr uint32_t GPSET0 = 0x1c;
+    constexpr uint32_t GPSET1 = 0x20;
 
-/**  GPIO register adress offsets **/
-constexpr uint32_t GPFSEL[] = { 0x0, 0x4, 0x8, 0xc, 0x10, 0x14 };
+    constexpr uint32_t GPCLR0 = 0x28;
+    constexpr uint32_t GPCLR1 = 0x2c;
 
-constexpr uint32_t GPSET0 = 0x1c;
-constexpr uint32_t GPSET1 = 0x20;
+    constexpr uint32_t GPLEV0 = 0x34;
+    constexpr uint32_t GPLEV1 = 0x38;
 
-constexpr uint32_t GPCLR0 = 0x28;
-constexpr uint32_t GPCLR1 = 0x2c;
+    constexpr uint32_t GPEDS0 = 0x40;
+    constexpr uint32_t GPEDS1 = 0x44;
 
-constexpr uint32_t GPLEV0 = 0x34;
-constexpr uint32_t GPLEV1 = 0x38;
+    constexpr uint32_t GPREN0 = 0x4c;
+    constexpr uint32_t GPREN1 = 0x50;
 
-constexpr uint32_t GPEDS0 = 0x40;
-constexpr uint32_t GPEDS1 = 0x44;
+    constexpr uint32_t GPFEN0 = 0x54;
+    constexpr uint32_t GPFEN1 = 0x5c;
 
-constexpr uint32_t GPREN0 = 0x4c;
-constexpr uint32_t GPREN1 = 0x50;
+    constexpr uint32_t GPHEN0 = 0x64;
+    constexpr uint32_t GPHEN1 = 0x68;
 
-constexpr uint32_t GPFEN0 = 0x54;
-constexpr uint32_t GPFEN1 = 0x5c;
+    constexpr uint32_t GPLEN0 = 0x70;
+    constexpr uint32_t GPLEN1 = 0x74;
 
-constexpr uint32_t GPHEN0 = 0x64;
-constexpr uint32_t GPHEN1 = 0x68;
+    constexpr uint32_t GPAREN0 = 0x7c;
+    constexpr uint32_t GPAREN1 = 0x80;
 
-constexpr uint32_t GPLEN0 = 0x70;
-constexpr uint32_t GPLEN1 = 0x74;
+    constexpr uint32_t GPAFEN0 = 0x88;
+    constexpr uint32_t GPAFEN1 = 0x8c;
 
-constexpr uint32_t GPAREN0 = 0x7c;
-constexpr uint32_t GPAREN1 = 0x80;
+    constexpr uint32_t GPPUD = 0x94;
+    constexpr uint32_t GPPUDCLK0 = 0x98;
+    constexpr uint32_t GPPUDCLK1 = 0x9c;
 
-constexpr uint32_t GPAFEN0 = 0x88;
-constexpr uint32_t GPAFEN1 = 0x8c;
+    /** Types **/
+    enum class PIN_MODE : unsigned int {
+        INPUT = 0b000,
+        OUTPUT = 0b001,
+        ALT0 = 0b100,
+        ALT1 = 0b101,
+        ALT2 = 0b110,
+        ALT3 = 0b111,
+        ALT4 = 0b011,
+        ALT5 = 0b010
+    };
 
-constexpr uint32_t GPPUD = 0x94;
-constexpr uint32_t GPPUDCLK0 = 0x98;
-constexpr uint32_t GPPUDCLK1 = 0x9c;
-
-
-/** Types **/
-enum class PIN_MODE : unsigned int {
-    INPUT = 0b000,
-    OUTPUT = 0b001,
-    ALT0 = 0b100,
-    ALT1 = 0b101,
-    ALT2 = 0b110,
-    ALT3 = 0b111,
-    ALT4 = 0b011,
-    ALT5 = 0b010
-};
-
-enum class PIN_LEVEL : unsigned int {
-    LOW = 0b0,
-    HIGH = 0b1
-};
+    enum class PIN_LEVEL : unsigned int {
+        LOW = 0b0,
+        HIGH = 0b1
+    };
 
 
-/**
- * Library main class.
- * Handles GPIO manipulations
- */
-class GPIO {
+    /**
+     * Library main class.
+     * Handles GPIO manipulations
+     */
+    class GPIO {
     private:
-        Bcm2835Periph peripheral{BCM_GPIO_BASE};   // Peripheral handler
-        volatile uint32_t* p_base{nullptr};  // Peripheral memory base pointer;
+        Bcm2835Periph peripheral{ BCM_GPIO_BASE };   // Peripheral handler
+        volatile uint32_t* p_base{ nullptr };  // Peripheral memory base pointer;
 
         /**
          * Used to access a certain registry
@@ -185,4 +183,5 @@ class GPIO {
          * Resets all GPIO parameters
          */
         void reset(void) const;
-};
+    };
+}
