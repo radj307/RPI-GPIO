@@ -1,5 +1,6 @@
 #include <iostream>
 #include <thread>
+
 #include <RPI-GPIO.h>
 
 using namespace rpigpio;
@@ -25,11 +26,11 @@ int main(const int argc, char** argv)
 
 		std::cout << gpio.digitalRead(readPin) << std::endl;
 
-		gpio.digitalWrite(writePin, PIN_LEVEL::LOW);
+		gpio.digitalWrite(writePin, false);
 
 		std::this_thread::sleep_for(1s);
 
-		gpio.digitalWrite(writePin, PIN_LEVEL::HIGH);
+		gpio.digitalWrite(writePin, true);
 
 		return 0;
 	} catch (const std::exception& ex) {

@@ -40,44 +40,48 @@ using namespace rpigpio;
 /* Public methods */
 Bcm2835Periph::Bcm2835Periph(uint32_t addr_p) : addr{ addr_p } {}
 
-Bcm2835Periph::~Bcm2835Periph() {
-    if (mapped) {
-        unmap();
-    }
+Bcm2835Periph::~Bcm2835Periph()
+{
+	if (mapped) {
+		unmap();
+	}
 
-    if (mem_fd) {
-        closeMem();
-    }
+	if (mem_fd) {
+		closeMem();
+	}
 }
 
-bool Bcm2835Periph::map() {
-    if (!openMem()) throw make_exception("I/O Exception ", errno);
+bool Bcm2835Periph::map()
+{
+	if (!openMem()) throw make_exception("I/O Exception ", errno);
 
-    mapped = mmap(
-        nullptr,
-        PAGE_SIZE,
-        PROT_READ | PROT_WRITE,
-        MAP_SHARED,
-        mem_fd,
-        addr
-    );
+	mapped = mmap(
+		nullptr,
+		PAGE_SIZE,
+		PROT_READ | PROT_WRITE,
+		MAP_SHARED,
+		mem_fd,
+		addr
+	);
 
-    if (!mapped) throw make_exception("Memory Exception ", errno);
-    else base = reinterpret_cast<volatile uint32_t*> (mapped);
+	if (!mapped) throw make_exception("Memory Exception ", errno);
+	else base = reinterpret_cast<volatile uint32_t*> (mapped);
 
-    return true;
+	return true;
 }
 
-void Bcm2835Periph::unmap() {
-    munmap(mapped, PAGE_SIZE);
-    mapped = nullptr;
-    base = nullptr;
-    closeMem();
+void Bcm2835Periph::unmap()
+{
+	munmap(mapped, PAGE_SIZE);
+	mapped = nullptr;
+	base = nullptr;
+	closeMem();
 }
 
-volatile uint32_t* Bcm2835Periph::getBase() const {
-    if (base) return base;
-    else return nullptr;
+volatile uint32_t* Bcm2835Periph::getBase() const
+{
+	if (base) return base;
+	else return nullptr;
 }
 
 
@@ -86,11 +90,13 @@ volatile uint32_t* Bcm2835Periph::getBase() const {
 
 /* Private methods */
 
-bool Bcm2835Periph::openMem() {
-    return ((mem_fd = open("/dev/mem", O_RDWR | O_SYNC)) >= 0);
+bool Bcm2835Periph::openMem()
+{
+	return ((mem_fd = open("/dev/mem", O_RDWR | O_SYNC)) >= 0);
 }
 
-void Bcm2835Periph::closeMem() {
-    close(mem_fd);
-    mem_fd = 0;
+void Bcm2835Periph::closeMem()
+{
+	close(mem_fd);
+	mem_fd = 0;
 }

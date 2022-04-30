@@ -17,4 +17,9 @@ project("RPI_GPIO" VERSION "${RPI_GPIO_VERSION}" LANGUAGES CXX)
 
 add_subdirectory("307lib")
 add_subdirectory("lib")
-add_subdirectory("test")
+add_subdirectory("gpiocli")
+
+option(RPI_GPIO_ENABLE_TEST OFF "Enable the development testing project.")
+if (RPI_GPIO_ENABLE_TEST)
+	add_subdirectory("test")
+endif()
